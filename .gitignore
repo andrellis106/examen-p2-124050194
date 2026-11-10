@@ -1,0 +1,9 @@
+# Dataset (no se sube al repo)
+*.csv
+
+# Credenciales
+.env
+
+# Basura de Python
+__pycache__/
+*.pyc

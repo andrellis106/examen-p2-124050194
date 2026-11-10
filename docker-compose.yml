@@ -1,0 +1,49 @@
+services:
+  hadoop:
+    build: ./hadoop
+    hostname: hadoop
+    volumes:
+      - ${DATASET_DIR}:/data/input:ro
+      - ./mapreduce:/app/mapreduce
+      - hadoop_output:/data/output
+      - ssh_keys:/shared-keys
+    networks:
+      - pipeline
+
+  db:
+    image: postgres:16
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - pipeline
+
+  api:
+    build: ./api
+    env_file: .env
+    ports:
+      - "${API_PORT}:5000"
+    volumes:
+      - ./scripts:/scripts:ro
+      - hadoop_output:/data/output:ro
+      - ssh_keys:/shared-keys:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      hadoop:
+        condition: service_started
+    networks:
+      - pipeline
+
+networks:
+  pipeline:
+
+volumes:
+  pgdata:
+  hadoop_output:
+  ssh_keys:
