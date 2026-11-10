@@ -41,13 +41,13 @@ Tres servicios en una red de Docker Compose (`pipeline`):
 | Parte | Evidencia |
 |---|---|
 | A1 Hadoop | ![hadoop version](evidencias/01-hadoop-version.png) |
-| B SSH sin contraseña (`ssh localhost`) | ![ssh localhost](evidencias/02-ssh-localhost.png) |
-| B SSH de `api` a `hadoop` | ![ssh api](evidencias/03-ssh-api-hadoop.png) |
-| C1 Salida del job | ![salida job](evidencias/04-salida-job.png) |
-| C2 Comparativa de resultados | ![comparativa](evidencias/05-comparativa.png) |
-| D Respuesta de la API | ![api](evidencias/06-api-resultados.png) |
-| D Persistencia tras `down` y `up` | ![persistencia](evidencias/07-persistencia.png) |
-| D Endpoint de escritura | ![escritura](evidencias/08-api-escritura.png) |
+| B SSH sin contraseña (`ssh localhost`) | [ver evidencia](evidencias/02-ssh-localhost.txt) |
+| B SSH de `api` a `hadoop` | [ver evidencia](evidencias/03-ssh-api-hadoop.txt) |
+| C1 Salida del job | [ver evidencia](evidencias/04-salida-job.txt) |
+| C2 Comparativa de resultados | [ver evidencia](evidencias/05-comparativa.txt) |
+| D Respuesta de la API | [ver evidencia](evidencias/06-api-resultados.txt) |
+| D Persistencia tras `down` y `up` | [ver evidencia](evidencias/07-persistencia.txt) |
+| D Endpoint de escritura | [ver evidencia](evidencias/08-api-escritura.txt) |
 
 ## Endpoints de la API
 
@@ -63,12 +63,12 @@ Tres servicios en una red de Docker Compose (`pipeline`):
 
 | Método | Tiempo real |
 |---|---|
-| Hadoop Streaming (standalone) | 23.555 s |
-| Script secuencial en Python | 11.586 s |
+| Hadoop Streaming (standalone) | 21.241 s |
+| Script secuencial en Python | 11.426 s |
 
 Los resultados de ambos son idénticos (verificado con `diff`).
 
-El script secuencial tardó 11.586 s y el job de Hadoop Streaming 23.555 s. En este escenario el secuencial fue más rápido porque el archivo (~350 MB) cabe cómodamente en una sola máquina y el problema se resuelve con un único recorrido y 28 contadores en memoria. Hadoop paga costos fijos: arrancar la JVM, planificar las tareas, lanzar un proceso Python por cada map y, sobre todo, escribir y ordenar los datos intermedios en disco (Spilled Records = 10,000,000). En modo standalone además no hay varios nodos que repartan el trabajo. MapReduce conviene cuando los datos superan lo que una sola máquina puede procesar o almacenar y existe un clúster con HDFS que reparta el cómputo.
+El script secuencial tardó 11.426 s y el job de Hadoop Streaming 21.241 s. En este escenario el secuencial fue más rápido porque el archivo (~350 MB) cabe cómodamente en una sola máquina y el problema se resuelve con un único recorrido y 28 contadores en memoria. Hadoop paga costos fijos: arrancar la JVM, planificar las tareas, lanzar un proceso Python por cada map y, sobre todo, escribir y ordenar los datos intermedios en disco (Spilled Records = 10,000,000). En modo standalone además no hay varios nodos que repartan el trabajo. MapReduce conviene cuando los datos superan lo que una sola máquina puede procesar o almacenar y existe un clúster con HDFS que reparta el cómputo.
 
 ## Seguridad
 
