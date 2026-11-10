@@ -74,3 +74,14 @@ El script secuencial tardó 11.426 s y el job de Hadoop Streaming 21.241 s. En e
 
 - El CSV y el archivo `.env` están en `.gitignore`; el repo solo incluye `.env.example`.
 - SSH solo acepta llaves (sin contraseñas); las llaves se generan al arrancar el contenedor, no en la imagen.
+## Parte E. Teoría
+
+**1. Modos de Hadoop.** En *standalone* todo corre en un solo proceso Java, sin demonios, leyendo del sistema de archivos local; es el modo que usa este proyecto. En *pseudo-distribuido* corren todos los demonios (NameNode, DataNode, ResourceManager, NodeManager) en una sola máquina, cada uno en su propio proceso, simulando un clúster. En *totalmente distribuido* los demonios se reparten en varios nodos físicos y los datos se replican entre ellos. HDFS se usa en el pseudo-distribuido y en el totalmente distribuido; en standalone no.
+
+**2. Dataset como volumen y no con `COPY`.** (a) La imagen no engorda ~350 MB y se construye mucho más rápido. (b) Los datos viven fuera de la imagen: se pueden cambiar o regenerar sin reconstruirla. (c) El CSV no queda dentro de la imagen ni del repositorio, así que no se sube a GitHub ni a un registro de imágenes. (d) Se monta en solo lectura (`:ro`), por lo que el contenedor no puede modificar el original.
+
+**3. `docker compose down` vs `down -v`.** `docker compose down` elimina los contenedores y la red, pero los volúmenes nombrados se conservan; por eso los datos de PostgreSQL (`pgdata`) siguen ahí al volver a hacer `up`. `docker compose down -v` elimina también los volúmenes, así que la base de datos se pierde y hay que volver a cargar los resultados.
+
+**4. MapReduce vs script secuencial.** Con un archivo de ~350–400 MB, Hadoop paga costos fijos (arrancar la JVM, planificar tareas, lanzar procesos Python, escribir y ordenar datos intermedios en disco) y en standalone no hay varios nodos que repartan el trabajo; por eso mi script secuencial (11.426 s) le ganó a Hadoop (21.241 s). MapReduce conviene cuando los datos son demasiado grandes para una sola máquina (cientos de GB o más), cuando hay un clúster con HDFS que reparta el cómputo y cuando el proceso es paralelizable.
+
+**5. `CMD` vs `ENTRYPOINT`, `COPY` vs `ADD`.** `CMD` define el comando por defecto del contenedor y se reemplaza fácilmente con lo que se escribe después de `docker run imagen`. `ENTRYPOINT` define el ejecutable fijo del contenedor; lo que se escribe después se agrega como argumentos (solo se reemplaza con `--entrypoint`). `COPY` solo copia archivos o carpetas del contexto a la imagen. `ADD` hace lo mismo pero además descomprime archivos `.tar` locales y acepta URLs; por eso se recomienda `COPY` salvo que se necesite esa función extra.
