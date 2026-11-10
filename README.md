@@ -8,6 +8,7 @@
 
 Tres servicios en una red de Docker Compose (`pipeline`):
 
+
 | Servicio | Imagen | Función |
 |---|---|---|
 | `hadoop` | Debian + OpenJDK 11 + Hadoop 3.3.6 (standalone) + OpenSSH | Procesa el CSV con Hadoop Streaming |
