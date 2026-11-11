@@ -2,7 +2,7 @@ FROM debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# bullseye ya está archivado: apuntamos apt al archivo de Debian
+# b archivo de Debian
 RUN sed -i 's|deb.debian.org|archive.debian.org|g; s|security.debian.org|archive.debian.org|g' /etc/apt/sources.list \
     && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99archive
 
