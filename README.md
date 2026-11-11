@@ -54,7 +54,7 @@ Tres servicios en una red de Docker Compose (`pipeline`):
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/resultados` | Todos los registros |
+|`/resultados` | Todos los registros |
 | GET | `/resultados/<metodo_pago>` | Filtra por método de pago (opcional `?dia=Lunes`) |
 | POST | `/resultados` | Crea un registro |
 | PUT | `/resultados/<id>` | Actualiza las unidades |
@@ -77,7 +77,7 @@ El script secuencial tardó 11.426 s y el job de Hadoop Streaming 21.241 s. En e
 - SSH solo acepta llaves (sin contraseñas); las llaves se generan al arrancar el contenedor, no en la imagen.
 
 - 
-## Parte E. Teoría
+##  Teoría
 
 **1. Modos de Hadoop.** En el modo standalone Hadoop corre como un solo programa en una sola máquina y lee los archivos normales del disco; es el que usé en este proyecto. En el pseudo-distribuido también es una sola máquina, pero se levantan por separado todos los servicios de Hadoop (NameNode, DataNode, etc.), como si fuera un clúster pequeño. En el totalmente distribuido esos servicios están repartidos en varias computadoras. HDFS se usa en el pseudo-distribuido y en el totalmente distribuido, pero no en standalone.
 
