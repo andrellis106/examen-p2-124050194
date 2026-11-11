@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-# openssh-client: para demostrar ssh hacia el contenedor hadoop (parte B)
+# demostrar ssh hacia el contenedor hadoop 
 RUN apt-get update && apt-get install -y --no-install-recommends openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
