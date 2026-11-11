@@ -41,14 +41,14 @@ Tres servicios en una red de Docker Compose (`pipeline`):
 
 | Parte | Evidencia |
 |---|---|
-| A1 Hadoop | ![hadoop version](evidencias/01-hadoop-version.png) |
-| B SSH sin contraseña (`ssh localhost`) | [ver evidencia](evidencias/02-ssh-localhost.txt) |
-| B SSH de `api` a `hadoop` | [ver evidencia](evidencias/03-ssh-api-hadoop.txt) |
-| C1 Salida del job | [ver evidencia](evidencias/04-salida-job.txt) |
-| C2 Comparativa de resultados | [ver evidencia](evidencias/05-comparativa.txt) |
-| D Respuesta de la API | [ver evidencia](evidencias/06-api-resultados.txt) |
-| D Persistencia tras `down` y `up` | [ver evidencia](evidencias/07-persistencia.txt) |
-| D Endpoint de escritura | [ver evidencia](evidencias/08-api-escritura.txt) |
+|  Hadoop | ![hadoop version](evidencias/01-hadoop-version.png) |
+|  SSH sin contraseña (`ssh localhost`) | [ver evidencia](evidencias/02-ssh-localhost.txt) |
+|  SSH de `api` a `hadoop` | [ver evidencia](evidencias/03-ssh-api-hadoop.txt) |
+|  Salida del job | [ver evidencia](evidencias/04-salida-job.txt) |
+|  Comparativa de resultados | [ver evidencia](evidencias/05-comparativa.txt) |
+|  Respuesta de la API | [ver evidencia](evidencias/06-api-resultados.txt) |
+|  Persistencia tras `down` y `up` | [ver evidencia](evidencias/07-persistencia.txt) |
+|  Endpoint de escritura | [ver evidencia](evidencias/08-api-escritura.txt) |
 
 ## Endpoints de la API
 
