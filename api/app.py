@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 
 def get_conn():
-    # El host es el NOMBRE DEL SERVICIO del compose: "db"
     return psycopg2.connect(
         host=os.environ.get("DB_HOST", "db"),
         dbname=os.environ["POSTGRES_DB"],
@@ -58,13 +57,13 @@ def inicio():
     return jsonify({"mensaje": "API de ventas DataMart", "endpoints": ["/resultados"]})
 
 
-# GET /resultados -> todos los registros
+#  todos los registros
 @app.get("/resultados")
 def listar():
     return jsonify(run("SELECT * FROM resultados ORDER BY metodo_pago, id", fetch="all"))
 
 
-# GET /resultados/<clave> -> filtro por método de pago (opcional: ?dia=Lunes)
+# > filtro por método de pago 
 @app.get("/resultados/<metodo>")
 def por_metodo(metodo):
     dia = request.args.get("dia")
@@ -79,7 +78,7 @@ def por_metodo(metodo):
     return jsonify(filas)
 
 
-# POST /resultados -> crea un registro
+# > crea un registro
 @app.post("/resultados")
 def crear():
     d = request.get_json(silent=True) or {}
@@ -96,7 +95,7 @@ def crear():
     return jsonify(fila), 201
 
 
-# PUT /resultados/<id> -> actualiza las unidades
+# actualiza las unidades
 @app.put("/resultados/<int:rid>")
 def actualizar(rid):
     d = request.get_json(silent=True) or {}
@@ -111,7 +110,7 @@ def actualizar(rid):
     return jsonify(fila)
 
 
-# DELETE /resultados/<id> -> elimina un registro
+#  elimina un registro
 @app.delete("/resultados/<int:rid>")
 def borrar(rid):
     fila = run("DELETE FROM resultados WHERE id = %s RETURNING id", (rid,), fetch="one")
