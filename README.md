@@ -52,13 +52,13 @@ Tres servicios en una red de Docker Compose (`pipeline`):
 
 ## Endpoints de la API
 
-| Método | Ruta | Descripción |
+|  Ruta | Descripción |
 |---|---|---|
 |`/resultados` | Todos los registros |
-| GET | `/resultados/<metodo_pago>` | Filtra por método de pago (opcional `?dia=Lunes`) |
-| POST | `/resultados` | Crea un registro |
-| PUT | `/resultados/<id>` | Actualiza las unidades |
-| DELETE | `/resultados/<id>` | Elimina un registro |
+| `/resultados/<metodo_pago>` | Filtra por método de pago (opcional `?dia=Lunes`) |
+|  `/resultados` | Crea un registro |
+|  `/resultados/<id>` | Actualiza las unidades |
+|  `/resultados/<id>` | Elimina un registro |
 
 ## Comparativa de rendimiento
 
